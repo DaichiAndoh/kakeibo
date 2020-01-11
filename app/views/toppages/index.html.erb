@@ -1,4 +1,8 @@
-<div class="text-center center jumbotron" style="background-color:#ffd">
-  <h1>家計簿をつけよう！！</h1>
-  <%= link_to '今すぐ登録！', signup_path, class: 'btn btn-lg btn-warning' %>
-</div>
+<% if logged_in? %>
+  <p>ログイン完了ユーザ: <%= current_user.name %></p>
+<% else %>
+  <div class="text-center center jumbotron" style="background-color:#ffd">
+    <h1>家計簿をつけよう！！</h1>
+    <%= link_to '今すぐ登録！', signup_path, class: 'btn btn-lg btn-warning' %>
+  </div>
+<% end %>
