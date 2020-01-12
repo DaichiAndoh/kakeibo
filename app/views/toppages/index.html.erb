@@ -17,11 +17,14 @@
   
   <table class="table table-striped">
     <th><%= this_month.to_i - 1 %>月の収支</th><th></th><th></th>
+    <% total_price = 0 %>
     <% @expenditures.each do |expenditure| %>
       <% if expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 %>
-        <tr><td><%= expenditure.date.strftime("%m月%d日") %></td><td><%= expenditure.category %></td><td><%= expenditure.price %></td></tr>
+        <tr><td><%= expenditure.date.strftime("%m月%d日") %></td><td><%= expenditure.category %></td><td><%= link_to expenditure.price, edit_expenditure_path(expenditure) %></td></tr>
+        <% total_price += expenditure.price %> 
       <% end %>
     <% end %>
+    <tr><td>合計金額</td><td></td><td><%= total_price %></td></tr>
   </table>
   
   <div class="row text-center">

@@ -22,9 +22,18 @@ class ExpendituresController < ApplicationController
   end
 
   def edit
+    @expenditure = Expenditure.find(params[:id])
   end
 
   def update
+    @expenditure = Expenditure.find(params[:id])
+    if @expenditure.update(expenditure_params)
+      flash[:success] = '変更を保存しました'
+      redirect_to root_url
+    else
+      flash[:danger] = '変更を保存できませんでした'
+      render :edit
+    end
   end
 
   def destroy
