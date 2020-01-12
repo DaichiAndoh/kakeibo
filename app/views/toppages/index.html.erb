@@ -1,5 +1,6 @@
 <% if logged_in? %>
   <p>ログイン完了ユーザ: <%= current_user.name %></p>
+  <%= link_to '支出追加', new_expenditure_path %>
 <% else %>
   <div class="text-center center jumbotron" style="background-color:#ffd">
     <h1>家計簿をつけよう！！</h1>

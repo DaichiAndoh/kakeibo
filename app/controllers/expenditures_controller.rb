@@ -5,13 +5,11 @@ class ExpendituresController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:id])
-    @expenditure = @user.expenditures.build
+    @expenditure = current_user.expenditures.build
   end
 
   def create
-    @user = User.find(params[:id])
-    @expenditure = @user.expenditures.build(expenditure_params)
+    @expenditure = current_user.expenditures.build(expenditure_params)
     
     if @expenditure.save
       flash[:success] = '支出を保存しました'
