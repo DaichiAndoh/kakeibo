@@ -1,12 +1,34 @@
 <% if logged_in? %>
-  <p>ログイン完了ユーザ: <%= current_user.name %></p>
-  
-  <% @expendetures.each do |expendeture| %>
-    <%= link_to expendeture.price, edit_expenditure_path(expendeture) %>
+
+  <% this_year = "" %>
+  <% this_month = "" %>
+
+  <%= month_calendar(attribute: :date, events: @expenditures) do |date, expenditures| %>
+    <%= date.strftime("%d") %>
+    <% this_year = date.strftime("%Y").to_i %>
+    <% this_month = date.strftime("%m").to_i %>
+    
+    <% expenditures.each do |expenditure| %>
+      <div>
+        <%= link_to expenditure.price, edit_expenditure_path(expenditure) %>
+      </div>
+    <% end %>
   <% end %>
   
-  <%= link_to '支出追加', new_expenditure_path %>
-  <%= link_to '支出一覧', expenditures_path %>
+  <table class="table table-striped">
+    <th><%= this_month.to_i - 1 %>月の収支</th><th></th><th></th>
+    <% @expenditures.each do |expenditure| %>
+      <% if expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 %>
+        <tr><td><%= expenditure.date.strftime("%m月%d日") %></td><td><%= expenditure.category %></td><td><%= expenditure.price %></td></tr>
+      <% end %>
+    <% end %>
+  </table>
+  
+  <div class="row text-center">
+    <div class="col-md-4 p-3" style="background-color:#ffe0bd"><%= link_to 'カレンダー', root_url %></div>
+    <div class="col-md-4 p-3" style="background-color:#ffe0ff"><%= link_to '支出追加', new_expenditure_path %></div>
+    <div class="col-md-4 p-3" style="background-color:#ffe0ff"><%= link_to '支出一覧', expenditures_path %></div>
+  </div>
 <% else %>
   <div class="text-center center jumbotron" style="background-color:#ffd">
     <h1>家計簿をつけよう！！</h1>

@@ -1,5 +1,7 @@
 class ToppagesController < ApplicationController
   def index
-    @expendetures = current_user.expenditures
+    if logged_in?
+      @expenditures = current_user.expenditures
+    end
   end
 end
