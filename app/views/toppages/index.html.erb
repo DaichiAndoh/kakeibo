@@ -1,6 +1,12 @@
 <% if logged_in? %>
   <p>ログイン完了ユーザ: <%= current_user.name %></p>
+  
+  <% @expendetures.each do |expendeture| %>
+    <%= link_to expendeture.price, edit_expenditure_path(expendeture) %>
+  <% end %>
+  
   <%= link_to '支出追加', new_expenditure_path %>
+  <%= link_to '支出一覧', expenditures_path %>
 <% else %>
   <div class="text-center center jumbotron" style="background-color:#ffd">
     <h1>家計簿をつけよう！！</h1>

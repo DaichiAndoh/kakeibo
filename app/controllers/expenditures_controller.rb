@@ -2,6 +2,7 @@ class ExpendituresController < ApplicationController
   before_action :require_user_logged_in
   
   def index
+    @expendetures = current_user.expenditures
   end
 
   def new

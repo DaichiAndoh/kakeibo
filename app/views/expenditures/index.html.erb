@@ -1,2 +1,7 @@
-<h1>Expenditures#index</h1>
-<p>Find me in app/views/expenditures/index.html.erb</p>
+<% total_price = 0 %>
+
+<% @expendetures.each do |expenditure| %>
+  <% total_price += expenditure.price %>
+<% end %>
+
+<%= total_price %>
