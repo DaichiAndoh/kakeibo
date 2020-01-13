@@ -29,6 +29,7 @@
       </div>
 
       <%= f.submit '保存', class: 'btn btn-warning btn-block' %>
+      <%= link_to '削除する', @expenditure, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger btn-sm' %>
     <% end %>
     
   </div>

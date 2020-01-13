@@ -37,6 +37,10 @@ class ExpendituresController < ApplicationController
   end
 
   def destroy
+    @expenditure = Expenditure.find(params[:id])
+    @expenditure.destroy
+    flash[:success] = '削除しました'
+    redirect_to root_url
   end
   
   private
