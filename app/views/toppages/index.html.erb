@@ -3,14 +3,14 @@
   <% this_year = "" %>
   <% this_month = "" %>
 
-  <%= month_calendar(attribute: :date, events: @expenditures) do |date, expenditures| %>
+  <%= month_calendar(attribute: :date, events: @expenditures_or_incomes) do |date, expenditures_or_incomes| %>
     <%= date.strftime("%d") %>
     <% this_year = date.strftime("%Y").to_i %>
     <% this_month = date.strftime("%m").to_i %>
     
-    <% expenditures.each do |expenditure| %>
+    <% expenditures_or_incomes.each do |expenditure_or_income| %>
       <div>
-        <%= link_to expenditure.price, edit_expenditure_path(expenditure) %>
+        <%= link_to expenditure_or_income.price, edit_expenditure_path(expenditure_or_income) %>
       </div>
     <% end %>
   <% end %>

@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :destroy]
   
   resources :expenditures, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :incomes, only: [:index, :new, :create, :edit, :update, :destroy]
 end
