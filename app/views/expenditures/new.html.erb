@@ -19,7 +19,7 @@
       </div>
       
       <div class="form-group">
-        <%= f.label :category, 'カテゴリー' %>
+        <%= f.label :category, 'カテゴリー' %><br>
         <%= f.select :category, [["日用品", "日用品"], ["食費", "食費"],  ["交通費", "交通費"], ["衣服", "衣服"],["交際費", "交際費"],["趣味", "趣味"],["その他", "その他"]], :prompt => "選択してください", class: 'form-control' %>
       </div>
 
@@ -29,7 +29,7 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :date, '日付' %>
+        <%= f.label :date, '日付' %><br>
         <%= f.date_select :date, class: 'form-control' %>
       </div>
 
