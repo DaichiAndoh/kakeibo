@@ -9,9 +9,15 @@
     <% this_month = date.strftime("%m").to_i %>
     
     <% expenditures_or_incomes.each do |expenditure_or_income| %>
-      <div>
-        <%= link_to expenditure_or_income.price, edit_expenditure_path(expenditure_or_income) %>
-      </div>
+      <% if expenditure_or_income.class.name == 'Expenditure' %>
+        <div>
+          <%= link_to expenditure_or_income.price, edit_expenditure_path(expenditure_or_income), :style=>"color:red;" %>
+        </div>
+      <% else %>
+        <div>
+          <%= link_to expenditure_or_income.price, edit_income_path(expenditure_or_income) %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
   
@@ -25,7 +31,7 @@
     <% total_price = 0 %>
     <% @expenditures.each do |expenditure| %>
       <% if expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 %>
-        <tr><td><%= expenditure.date.strftime("%m月%d日") %></td><td><%= expenditure.category %></td><td><%= link_to expenditure.price, edit_expenditure_path(expenditure) %></td></tr>
+        <tr><td><%= expenditure.date.strftime("%m月%d日") %></td><td><%= expenditure.category %></td><td><%= link_to expenditure.price, edit_expenditure_path(expenditure), :style=>"color:red;" %></td></tr>
         <% total_price += expenditure.price %> 
       <% end %>
     <% end %>

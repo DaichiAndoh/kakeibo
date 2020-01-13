@@ -21,9 +21,18 @@ class IncomesController < ApplicationController
   end
 
   def edit
+    @income = Income.find(params[:id])
   end
 
   def update
+    @income = Income.find(params[:id])
+    if @income.update(income_params)
+      flash[:success] = '変更を保存しました'
+      redirect_to root_url
+    else
+      flash[:danger] = '変更を保存できませんでした'
+      render :edit
+    end
   end
 
   def destroy

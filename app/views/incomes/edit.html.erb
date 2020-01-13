@@ -1,2 +1,35 @@
-<h1>Incomes#edit</h1>
-<p>Find me in app/views/incomes/edit.html.erb</p>
+<div class="text-center">
+  <h1>収入編集</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    
+    <%= form_with(model: @income, local: true) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+    
+      <div class="form-group">
+        <%= f.label :price, '金額' %>
+        <%= f.number_field :price, class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :category, 'カテゴリー' %>
+        <%= f.select :category, [["給料", "給料"], ["その他", "その他"]], :prompt => "選択してください", class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :memo, 'メモ' %>
+        <%= f.text_area :memo, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date, '日付' %>
+        <%= f.date_select :date, class: 'form-control' %>
+      </div>
+
+      <%= f.submit '保存', class: 'btn btn-warning btn-block' %>
+    <% end %>
+    
+  </div>
+</div>
