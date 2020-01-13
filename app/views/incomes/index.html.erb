@@ -1,10 +1,12 @@
-<% this_year = "" %>
-<% this_month = "" %>
+<% year = 0 %>
+<% month = 0 %>
 
 <%= month_calendar(attribute: :date, events: @incomes) do |date, incomes| %>
   <%= date.strftime("%d") %>
-  <% this_year = date.strftime("%Y").to_i %>
-  <% this_month = date.strftime("%m").to_i %>
+  <% if date.strftime("%d") == "15" %>
+    <% year = date.strftime("%y").to_i %>
+    <% month = date.strftime("%m").to_i %>
+  <% end %>
   
   <% incomes.each do |income| %>
     <div>
@@ -13,17 +15,17 @@
   <% end %>
 <% end %>
 
-<ul class="nav nav-tabs nav-justified my-4">
-  <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link" %></li>
-  <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link" %></li>
-  <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link active" %></li>
+<ul class="nav nav-tabs nav-justified mt-5">
+  <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link", :style=>"color:#777;" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link", :style=>"color:#777;" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link active", :style=>"color:#faa61a;" %></li>
 </ul>
 
 <!--<table class="table table-striped">-->
-<!--  <th><%= this_month.to_i - 1 %>月の支出</th><th></th><th></th>-->
+<!--  <th><%= month %>月の支出</th><th></th><th></th>-->
 <!--  <% total_price = 0 %>-->
 <!--  <% @incomes.each do |income| %>-->
-<!--    <% if income.date.strftime("%Y").to_i == this_year && income.date.strftime("%m").to_i == this_month -1 && income.category == '給料' %>-->
+<!--    <% if income.date.strftime("%Y").to_i == year && income.date.strftime("%m").to_i == month && income.category == '給料' %>-->
 <!--      <% total_price += income.price %> -->
 <!--    <% end %>-->
 <!--  <% end %>-->
@@ -31,14 +33,14 @@
 <!--</table>-->
 
 <table class="table">
-  <tr style="background-color:#eee"><th><%= this_month.to_i - 1 %>月のカテゴリー別収入</th><th></th><th></th></tr>
+  <tr style="background-color:#fff9d0;"><th><%= month %>月のカテゴリー別収入</th><th></th><th></th></tr>
   <% total_price = 0 %>
   <% salary = 0 %>
   <% etcetera = 0 %>
   <% @incomes.each do |income| %>
-    <% if income.date.strftime("%Y").to_i == this_year && income.date.strftime("%m").to_i == this_month -1 && income.category == '給料' %>
+    <% if income.date.strftime("%y").to_i == year && income.date.strftime("%m").to_i == month && income.category == '給料' %>
       <% salary += income.price %>
-    <% elsif income.date.strftime("%Y").to_i == this_year && income.date.strftime("%m").to_i == this_month -1 && income.category == 'その他' %>
+    <% elsif income.date.strftime("%y").to_i == year && income.date.strftime("%m").to_i == month && income.category == 'その他' %>
       <% etcetera += income.price %>
     <% end %>
   <% end %>
@@ -46,8 +48,4 @@
   <tr><td>その他</td><td></td><td><%= etcetera %></td></tr>
 </table>
 
-<div class="row text-center">
-  <div class="col-md-4 p-3" style="background-color:#ffe0bd"><%= link_to 'カレンダー', root_url %></div>
-  <div class="col-md-4 p-3" style="background-color:#ffe0ff"><%= link_to '支出追加', new_expenditure_path %></div>
-  <div class="col-md-4 p-3" style="background-color:#ffe0ff"><%= link_to '支出一覧', expenditures_path %></div>
-</div>
+<%= link_to '入力', new_expenditure_path, class:"btn btn-lg btn-warning col-12 col-sm-6 offset-sm-3 mt-3 mb-5" %>

@@ -1,10 +1,12 @@
-<% this_year = "" %>
-<% this_month = "" %>
+<% year = 0 %>
+<% month = 0 %>
 
 <%= month_calendar(attribute: :date, events: @expenditures) do |date, expenditures| %>
   <%= date.strftime("%d") %>
-  <% this_year = date.strftime("%Y").to_i %>
-  <% this_month = date.strftime("%m").to_i %>
+  <% if date.strftime("%d") == "15" %>
+    <% year = date.strftime("%y").to_i %>
+    <% month = date.strftime("%m").to_i %>
+  <% end %>
   
   <% expenditures.each do |expenditure| %>
     <div>
@@ -13,17 +15,17 @@
   <% end %>
 <% end %>
 
-<ul class="nav nav-tabs nav-justified my-4">
-  <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link" %></li>
-  <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link active" %></li>
-  <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link" %></li>
+<ul class="nav nav-tabs nav-justified mt-5">
+  <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link", :style=>"color:#777;" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link active", :style=>"color:#faa61a;" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link", :style=>"color:#777;" %></li>
 </ul>
 
 <!--<table class="table table-striped">-->
-<!--  <th><%= this_month.to_i - 1 %>月の支出</th><th></th><th></th>-->
+<!--  <th><%= month %>月の支出</th><th></th><th></th>-->
 <!--  <% total_price = 0 %>-->
 <!--  <% @expenditures.each do |expenditure| %>-->
-<!--    <% if expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '日用品' %>-->
+<!--    <% if expenditure.date.strftime("%Y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '日用品' %>-->
 <!--      <% total_price += expenditure.price %> -->
 <!--    <% end %>-->
 <!--  <% end %>-->
@@ -31,7 +33,7 @@
 <!--</table>-->
 
 <table class="table">
-  <tr style="background-color:#eee"><th><%= this_month.to_i - 1 %>月のカテゴリー別支出</th><th></th><th></th></tr>
+  <tr style="background-color:#fff9d0;"><th><%= month %>月のカテゴリー別支出</th><th></th><th></th></tr>
   <% total_price = 0 %>
   <% daily_necessaries = 0 %>
   <% food = 0 %>
@@ -41,19 +43,19 @@
   <% hobby = 0 %>
   <% etcetera = 0 %>
   <% @expenditures.each do |expenditure| %>
-    <% if expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '日用品' %>
+    <% if expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '日用品' %>
       <% daily_necessaries += expenditure.price %>
-    <% elsif expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '食費' %>
+    <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '食費' %>
       <% food += expenditure.price %>
-    <% elsif expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '交通費' %>
+    <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '交通費' %>
       <% transportation += expenditure.price %>
-    <% elsif expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '衣服' %>
+    <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '衣服' %>
       <% clothes += expenditure.price %>
-    <% elsif expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '交際費' %>
+    <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '交際費' %>
       <% entertainment += expenditure.price %>
-    <% elsif expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == '趣味' %>
+    <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '趣味' %>
       <% hobby += expenditure.price %>
-    <% elsif expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 && expenditure.category == 'その他' %>
+    <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == 'その他' %>
       <% etcetera += expenditure.price %>
     <% end %>
   <% end %>
@@ -66,8 +68,4 @@
   <tr><td>その他</td><td></td><td><%= etcetera %></td></tr>
 </table>
 
-<div class="row text-center">
-  <div class="col-md-4 p-3" style="background-color:#ffe0bd"><%= link_to 'カレンダー', root_url %></div>
-  <div class="col-md-4 p-3" style="background-color:#ffe0ff"><%= link_to '支出追加', new_expenditure_path %></div>
-  <div class="col-md-4 p-3" style="background-color:#ffe0ff"><%= link_to '支出一覧', expenditures_path %></div>
-</div>
+<%= link_to '入力', new_expenditure_path, class:"btn btn-lg btn-warning col-12 col-sm-6 offset-sm-3 mt-3 mb-5" %>
