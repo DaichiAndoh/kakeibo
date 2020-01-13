@@ -23,11 +23,12 @@
   
   <ul class="nav nav-tabs nav-justified my-4">
     <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link active" %></li>
-    <li class="nav-item"><%= link_to 'カテゴリー別一覧', expenditures_path, class:"nav-link" %></li>
+    <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link" %></li>
+    <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link" %></li>
   </ul>
   
   <table class="table">
-    <th style="background-color:#eee"><%= this_month.to_i - 1 %>月の支出</th><th style="background-color:#eee"></th><th style="background-color:#eee"></th>
+    <tr style="background-color:#eee"><th><%= this_month.to_i - 1 %>月の支出</th><th></th><th></th></tr>
     <% expenditure_month_total_price = 0 %>
     <% @expenditures.each do |expenditure| %>
       <% if expenditure.date.strftime("%Y").to_i == this_year && expenditure.date.strftime("%m").to_i == this_month -1 %>
@@ -37,7 +38,7 @@
     <% end %>
     <tr><td>支出合計金額</td><td></td><td><%= expenditure_month_total_price %></td></tr>
     
-    <th style="background-color:#eee"><%= this_month.to_i - 1 %>月の収入</th><th style="background-color:#eee"></th><th style="background-color:#eee"></th>
+    <tr style="background-color:#eee"><th><%= this_month.to_i - 1 %>月の収入</th><th></th><th></th></tr>
     <% income_month_total_price = 0 %>
     <% @incomes.each do |income| %>
       <% if income.date.strftime("%Y").to_i == this_year && income.date.strftime("%m").to_i == this_month -1 %>
@@ -47,9 +48,9 @@
     <% end %>
     <tr><td>収入合計金額</td><td></td><td><%= income_month_total_price %></td></tr>
     
-    <th style="background-color:#eee"><%= this_month.to_i - 1 %>月の収支</th><th style="background-color:#eee"></th><th style="background-color:#eee"></th>
-    <% total_price = expenditure_month_total_price - income_month_total_price %>
-      <tr><td>支出：<%= expenditure_month_total_price %></td><td>収入：<%= income_month_total_price %></td><td>合計：<%= total_price %></td></tr>
+    <tr style="background-color:#eee"><th><%= this_month.to_i - 1 %>月の収支</th><th></th><th></th></tr>
+    <% total_price = income_month_total_price - expenditure_month_total_price %>
+      <tr><td>支出：<%= expenditure_month_total_price %></td><td>収入：<%= income_month_total_price %></td><td>貯蓄：<%= total_price %></td></tr>
   </table>
   
   <div class="row text-center">

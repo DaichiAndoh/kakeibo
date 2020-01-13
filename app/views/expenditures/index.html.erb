@@ -8,14 +8,15 @@
   
   <% expenditures.each do |expenditure| %>
     <div>
-      <%= link_to expenditure.price, edit_expenditure_path(expenditure) %>
+      <%= link_to expenditure.price, edit_expenditure_path(expenditure), :style=>"color:red;" %>
     </div>
   <% end %>
 <% end %>
 
 <ul class="nav nav-tabs nav-justified my-4">
   <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link" %></li>
-  <li class="nav-item"><%= link_to 'カテゴリー別一覧', expenditures_path, class:"nav-link active" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link active" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link" %></li>
 </ul>
 
 <!--<table class="table table-striped">-->
@@ -29,8 +30,8 @@
 <!--  <tr><td>日用品</td><td></td><td><%= total_price %></td></tr>-->
 <!--</table>-->
 
-<table class="table table-striped">
-  <th><%= this_month.to_i - 1 %>月のカテゴリー別支出</th><th></th><th></th>
+<table class="table">
+  <tr style="background-color:#eee"><th><%= this_month.to_i - 1 %>月のカテゴリー別支出</th><th></th><th></th></tr>
   <% total_price = 0 %>
   <% daily_necessaries = 0 %>
   <% food = 0 %>
