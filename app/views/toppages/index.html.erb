@@ -15,6 +15,11 @@
     <% end %>
   <% end %>
   
+  <ul class="nav nav-tabs nav-justified my-4">
+    <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link active" %></li>
+    <li class="nav-item"><%= link_to 'カテゴリー別一覧', expenditures_path, class:"nav-link" %></li>
+  </ul>
+  
   <table class="table table-striped">
     <th><%= this_month.to_i - 1 %>月の収支</th><th></th><th></th>
     <% total_price = 0 %>
