@@ -2,6 +2,7 @@ class IncomesController < ApplicationController
   before_action :require_user_logged_in
   
   def index
+    @incomes = current_user.incomes
   end
 
   def new
