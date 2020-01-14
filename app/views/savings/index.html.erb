@@ -1,0 +1,45 @@
+<% year = 0 %>
+<% month = 0 %>
+
+<%= month_calendar(attribute: :date, events: @expenditures_or_incomes) do |date, expenditures_or_incomes| %>
+  <%= date.strftime("%d") %>
+  <% if date.strftime("%d") == "15" %>
+    <% year = date.strftime("%y").to_i %>
+    <% month = date.strftime("%m").to_i %>
+  <% end %>
+  
+  <% expenditures_or_incomes.each do |expenditure_or_income| %>
+    <% if expenditure_or_income.class.name == 'Expenditure' %>
+      <div>
+        <%= link_to expenditure_or_income.price, edit_expenditure_path(expenditure_or_income), :style=>"color:red;" %>
+      </div>
+    <% else %>
+      <div>
+        <%= link_to expenditure_or_income.price, edit_income_path(expenditure_or_income) %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<ul class="nav nav-tabs nav-justified mt-5">
+  <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link", :style=>"color:#777;" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link", :style=>"color:#777;" %></li>
+  <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link", :style=>"color:#777;" %></li>
+  <li class="nav-item"><%= link_to '貯蓄額', savings_path, class:"nav-link active", :style=>"color:#faa61a;" %></li>
+</ul>
+
+<table class="table">
+  <% expenditure_total_price = 0 %>
+  <% income_total_price = 0 %>
+  <tr style="background-color:#fff9d0;"><th>貯蓄額</th><th></th><th></th></tr>
+  <% @expenditures.each do |expenditure| %>
+    <% expenditure_total_price += expenditure.price %>
+  <% end %>
+  <% @incomes.each do |income| %>
+    <% income_total_price += income.price %>
+  <% end %>
+  <% savings = income_total_price - expenditure_total_price %>
+  <tr><td>貯蓄額</td><td></td><td><%= savings %></td></tr>
+</table>
+
+<%= link_to '入力', new_expenditure_path, class:"btn btn-lg btn-warning col-12 col-sm-6 offset-sm-3 mt-3 mb-5" %>

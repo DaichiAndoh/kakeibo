@@ -27,6 +27,7 @@
     <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link active", :style=>"color:#faa61a;" %></li>
     <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link", :style=>"color:#777;" %></li>
     <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link", :style=>"color:#777;" %></li>
+    <li class="nav-item"><%= link_to '貯蓄額', savings_path, class:"nav-link", :style=>"color:#777;" %></li>
   </ul>
   
   <table class="table">
@@ -52,7 +53,7 @@
     
     <tr style="background-color:#fff9d0;"><th><%= month %>月の収支</th><th></th><th></th></tr>
     <% total_price = income_month_total_price - expenditure_month_total_price %>
-      <tr><td>収入：<%= income_month_total_price %></td><td>支出：<%= expenditure_month_total_price %></td><td>貯蓄：<%= total_price %></td></tr>
+    <tr><td>収入：<%= income_month_total_price %></td><td>支出：<%= expenditure_month_total_price %></td><td>合計：<%= total_price %></td></tr>
   </table>
   
   <%= link_to '入力', new_expenditure_path, class:"btn btn-lg btn-warning col-12 col-sm-6 offset-sm-3 mt-3 mb-5" %>

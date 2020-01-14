@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   get 'signup', to: 'users#new'
-  resources :users, only: [:create, :destroy]
+  resources :users, only: :create
   
   resources :expenditures, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :incomes, only: [:index, :new, :create, :edit, :update, :destroy]
+  
+  get 'savings', to: 'savings#index'
 end
