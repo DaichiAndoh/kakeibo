@@ -36,36 +36,71 @@
   <tr style="background-color:#fff9d0;"><th><%= month %>月のカテゴリー別支出</th><th></th><th></th></tr>
   <% total_price = 0 %>
   <% daily_necessaries = 0 %>
+  <% daily_necessaries_expenditures = [] %>
   <% food = 0 %>
+  <% food_expenditures = [] %>
   <% transportation = 0 %>
+  <% transportation_expenditures = [] %>
   <% clothes = 0 %>
+  <% clothes_expenditures = [] %>
   <% entertainment = 0 %>
+  <% entertainment_expenditures = [] %>
   <% hobby = 0 %>
+  <% hobby_expenditures = [] %>
   <% etcetera = 0 %>
+  <% etcetera_expenditures = [] %>
   <% @expenditures.each do |expenditure| %>
     <% if expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '日用品' %>
+      <% daily_necessaries_expenditures.push(expenditure) %>
       <% daily_necessaries += expenditure.price %>
     <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '食費' %>
+      <% food_expenditures.push(expenditure) %>
       <% food += expenditure.price %>
     <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '交通費' %>
+      <% transportation_expenditures.push(expenditure) %>
       <% transportation += expenditure.price %>
     <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '衣服' %>
+      <% clothes_expenditures.push(expenditure) %>
       <% clothes += expenditure.price %>
     <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '交際費' %>
+      <% entertainment_expenditures.push(expenditure) %>
       <% entertainment += expenditure.price %>
     <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == '趣味' %>
+      <% hobby_expenditures.push(expenditure) %>
       <% hobby += expenditure.price %>
     <% elsif expenditure.date.strftime("%y").to_i == year && expenditure.date.strftime("%m").to_i == month && expenditure.category == 'その他' %>
+      <% etcetera_expenditures.push(expenditure) %>
       <% etcetera += expenditure.price %>
     <% end %>
   <% end %>
   <tr><td>日用品</td><td></td><td><%= daily_necessaries %></td></tr>
+  <% daily_necessaries_expenditures.each do |daily_necessaries_expenditure| %>
+    <tr class="slide_down_item"><td><%= daily_necessaries_expenditure.date %></td><td></td><td><%= daily_necessaries_expenditure.price %></td></tr>
+  <% end %>
   <tr><td>食費</td><td></td><td><%= food %></td></tr>
+  <% food_expenditures.each do |food_expenditure| %>
+    <tr class="slide_down_item"><td><%= food_expenditure.date %></td><td></td><td><%= food_expenditure.price %></td></tr>
+  <% end %>
   <tr><td>交通費</td><td></td><td><%= transportation %></td></tr>
+  <% transportation_expenditures.each do |transportation_expenditure| %>
+    <tr class="slide_down_item"><td><%= transportation_expenditure.date %></td><td></td><td><%= transportation_expenditure.price %></td></tr>
+  <% end %>
   <tr><td>衣服</td><td></td><td><%= clothes %></td></tr>
+  <% clothes_expenditures.each do |clothes_expenditure| %>
+    <tr class="slide_down_item"><td><%= clothes_expenditure.date %></td><td></td><td><%= clothes_expenditure.price %></td></tr>
+  <% end %>
   <tr><td>交際費</td><td></td><td><%= entertainment %></td></tr>
+  <% entertainment_expenditures.each do |entertainment_expenditure| %>
+    <tr class="slide_down_item"><td><%= entertainment_expenditure.date %></td><td></td><td><%= entertainment_expenditure.price %></td></tr>
+  <% end %>
   <tr><td>趣味</td><td></td><td><%= hobby %></td></tr>
+  <% hobby_expenditures.each do |hobby_expenditure| %>
+    <tr class="slide_down_item"><td><%= hobby_expenditure.date %></td><td></td><td><%= hobby_expenditure.price %></td></tr>
+  <% end %>
   <tr><td>その他</td><td></td><td><%= etcetera %></td></tr>
+  <% etcetera_expenditures.each do |etcetera_expenditure| %>
+    <tr class="slide_down_item"><td><%= etcetera_expenditure.date %></td><td></td><td><%= etcetera_expenditure.price %></td></tr>
+  <% end %>
 </table>
 
 <%= link_to '入力', new_expenditure_path, class:"btn btn-lg btn-warning col-12 col-sm-6 offset-sm-3 mt-3 mb-5" %>
