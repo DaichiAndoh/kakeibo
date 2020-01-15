@@ -13,21 +13,21 @@
     <% expenditures_or_incomes.each do |expenditure_or_income| %>
       <% if expenditure_or_income.class.name == 'Expenditure' %>
         <div>
-          <%= link_to expenditure_or_income.price, edit_expenditure_path(expenditure_or_income), :style=>"color:red;" %>
+          <%= link_to expenditure_or_income.price, edit_expenditure_path(expenditure_or_income), :style=>"color:red; font-size:12px;" %>
         </div>
       <% else %>
         <div>
-          <%= link_to expenditure_or_income.price, edit_income_path(expenditure_or_income) %>
+          <%= link_to expenditure_or_income.price, edit_income_path(expenditure_or_income), :style=>"font-size:12px;" %>
         </div>
       <% end %>
     <% end %>
   <% end %>
   
   <ul class="nav nav-tabs nav-justified mt-5">
-    <li class="nav-item"><%= link_to '月別収支', root_url, class:"nav-link active", :style=>"color:#faa61a;" %></li>
-    <li class="nav-item"><%= link_to 'カテゴリー別支出一覧', expenditures_path, class:"nav-link", :style=>"color:#777;" %></li>
-    <li class="nav-item"><%= link_to 'カテゴリー別収入一覧', incomes_path, class:"nav-link", :style=>"color:#777;" %></li>
-    <li class="nav-item"><%= link_to '貯蓄額', savings_path, class:"nav-link", :style=>"color:#777;" %></li>
+    <li class="nav-item"><%= link_to '収支', root_url, class:"nav-link active", :style=>"color:#faa61a;" %></li>
+    <li class="nav-item"><%= link_to '支出', expenditures_path, class:"nav-link", :style=>"color:#777;" %></li>
+    <li class="nav-item"><%= link_to '収入', incomes_path, class:"nav-link", :style=>"color:#777;" %></li>
+    <li class="nav-item"><%= link_to '貯金額', savings_path, class:"nav-link", :style=>"color:#777;" %></li>
   </ul>
   
   <table class="table">
@@ -60,6 +60,6 @@
 <% else %>
   <div class="text-center center jumbotron" style="background-color:#ffd">
     <h1>家計簿をつけよう！！</h1>
-    <%= link_to '今すぐ登録！', signup_path, class: 'btn btn-lg btn-warning' %>
+    <%= link_to '今すぐ登録！', signup_path, class: 'btn btn-lg btn-warning mt-3' %>
   </div>
 <% end %>
