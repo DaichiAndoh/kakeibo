@@ -22,11 +22,11 @@ class IncomesController < ApplicationController
   end
 
   def edit
-    @income = Income.find(params[:id])
+    @income = current_user.incomes.find(params[:id])
   end
 
   def update
-    @income = Income.find(params[:id])
+    @income = current_user.incomes.find(params[:id])
     if @income.update(income_params)
       flash[:success] = '変更を保存しました'
       redirect_to root_url
@@ -37,7 +37,7 @@ class IncomesController < ApplicationController
   end
 
   def destroy
-    @income = Income.find(params[:id])
+    @income = current_user.incomes.find(params[:id])
     @income.destroy
     flash[:success] = '削除しました'
     redirect_to root_url
